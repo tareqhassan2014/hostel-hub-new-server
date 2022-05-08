@@ -1,0 +1,30 @@
+import mongoose from 'mongoose';
+import IHostelBooking from './hostelBooking.interface.js';
+
+const HostelBookingModel = new mongoose.Schema(
+    {
+        hostelId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'HostelAdd',
+            required: [true, 'A hostelBooking must have a hostel'],
+        },
+        userId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+            required: [true, 'A hostelBooking must have a user'],
+        },
+        addId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+            required: [true, 'A hostelBooking must have a add'],
+        },
+    },
+    {
+        timestamps: true,
+    }
+);
+
+export default mongoose.model<IHostelBooking>(
+    'HostelBooking',
+    HostelBookingModel
+);
