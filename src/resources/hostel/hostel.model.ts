@@ -26,12 +26,6 @@ const HostelModel = new mongoose.Schema(
             type: String,
             default: 'https://i.ibb.co/FwTndH9/banner.jpg',
         },
-        request: {
-            type: Array,
-        },
-        member: {
-            type: Array,
-        },
         status: {
             type: String,
             default: 'pending',
@@ -54,7 +48,16 @@ const HostelModel = new mongoose.Schema(
     },
     {
         timestamps: true,
+        toJSON: { virtuals: true },
+        toObject: { virtuals: true },
     }
 );
+
+// virtual populate
+// HostelModel.virtual('member', {
+//     ref: 'HostelMember',
+//     foreignField: 'userId',
+//     localField: '_id',
+// });
 
 export default mongoose.model<IHostel>('Hostel', HostelModel);

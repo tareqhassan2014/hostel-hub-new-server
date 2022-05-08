@@ -5,7 +5,7 @@ const HostelBookingModel = new mongoose.Schema(
     {
         hostelId: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'HostelAdd',
+            ref: 'Hostel',
             required: [true, 'A hostelBooking must have a hostel'],
         },
         userId: {
@@ -15,7 +15,7 @@ const HostelBookingModel = new mongoose.Schema(
         },
         addId: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'User',
+            ref: 'HostelAdd',
             required: [true, 'A hostelBooking must have a add'],
         },
     },
@@ -23,6 +23,8 @@ const HostelBookingModel = new mongoose.Schema(
         timestamps: true,
     }
 );
+
+HostelBookingModel.index({ addId: 1, userId: 1 }, { unique: true });
 
 export default mongoose.model<IHostelBooking>(
     'HostelBooking',

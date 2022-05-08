@@ -5,7 +5,7 @@ import { login, signUp, virtualPopulate } from './auth.controller.js';
 const router = Router();
 
 router.post('/signup', signUp);
-router.post('/signin', verifyToken, login);
+router.post('/login', verifyToken, login);
 router.get('/:email', virtualPopulate);
 
 export default router;

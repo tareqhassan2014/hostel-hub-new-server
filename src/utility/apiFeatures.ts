@@ -1,5 +1,9 @@
 export class APIFeatures {
-    constructor(public query: any, private queryString: any) {
+    constructor(
+        public query: any,
+        private queryString: any,
+        private popOptions?: any
+    ) {
         this.query = query;
         this.queryString = queryString;
     }
@@ -49,6 +53,16 @@ export class APIFeatures {
         const skip = (page - 1) * limit;
 
         this.query = this.query.skip(skip).limit(limit);
+
+        return this;
+    }
+
+    populate() {
+        if (this.popOptions) {
+            this.query = this.query.populate(this.popOptions);
+        } else {
+            this.query = this.query;
+        }
 
         return this;
     }

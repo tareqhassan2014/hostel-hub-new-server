@@ -11,9 +11,8 @@ export const updateHostel = updateOne(hostelModel);
 
 export const getHostelBuyAdminId = catchAsync(
     async (req: Request, res: Response, next: NextFunction) => {
-        console.log(req.params.adminId);
-
-        const hostel = await hostelModel.find({ admin: req.params.adminId });
+        const hostel = await hostelModel.find({ _id: req.params.id });
+        // .populate({ path: 'member' });
 
         if (!hostel) {
             return next(new AppError('No Hostel found with that ID', 404));

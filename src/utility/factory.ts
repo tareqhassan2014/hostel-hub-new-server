@@ -3,17 +3,23 @@ import { APIFeatures } from './apiFeatures.js';
 import { AppError } from './appError.js';
 import { catchAsync } from './catchAsync.js';
 
-export const getAll = (Model: any) =>
+export const getAll = (Model: any, popOptions?: any) =>
     catchAsync(async (req: Request, res: Response, next: NextFunction) => {
         // To allow for nested GET reviews on tour (hack)
         let filter = {};
         if (req.params.tourId) filter = { tour: req.params.tourId };
 
-        const features = new APIFeatures(Model.find(filter), req.query)
+        const features = new APIFeatures(
+            Model.find(filter),
+            req.query,
+            popOptions
+        )
             .filter()
             .sort()
             .limitFields()
-            .paginate();
+            .paginate()
+            .populate();
+
         // const doc = await features.query.explain();
         const doc = await features.query;
 

@@ -10,6 +10,7 @@ import authRoute from './resources/auth/auth.router.js';
 import hostelRoute from './resources/hostel/hostel.router.js';
 import hostelAddRouter from './resources/hostelAdd/hostelAdd.router.js';
 import hostelBookingRouter from './resources/hostelBooking/hostelBooking.router.js';
+import hostelMemberRouter from './resources/hostelMember/hostelMember.router.js';
 import productRoute from './resources/product/product.router.js';
 import storeRoute from './resources/store/store.router.js';
 import { globalErrorHandler } from './utility/globalErrorHandler.js';
@@ -51,6 +52,7 @@ class App {
         this.express.use('/api/v1/store', storeRoute);
         this.express.use('/api/v1/hostelAdd', hostelAddRouter);
         this.express.use('/api/v1/hostelBooking', hostelBookingRouter);
+        this.express.use('/api/v1/hostelMember', hostelMemberRouter);
         this.express.all('*', notFound);
         this.express.use(globalErrorHandler);
     }

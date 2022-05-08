@@ -1,15 +1,11 @@
-export default interface IProduct {
+import { Document, Schema } from 'mongoose';
+
+export default interface IProduct extends Document {
+    userId: Schema.Types.ObjectId;
     category: string;
-    name: string;
-    seller: string;
-    wholePrice: string;
-    priceFraction: string;
-    stock: number;
-    star: number;
-    starCount: number;
+    title: string;
+    description: string;
+    price: string;
     img: string;
-    url: string;
-    features: object[] | [];
-    price: number;
-    shipping: number;
+    phone: string;
 }
