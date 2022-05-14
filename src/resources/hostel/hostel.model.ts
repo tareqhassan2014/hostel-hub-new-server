@@ -45,6 +45,11 @@ const HostelModel = new mongoose.Schema(
             required: [true, 'A hostel must have a Admin'],
             unique: true,
         },
+        member: {
+            type: [mongoose.Schema.Types.ObjectId],
+            ref: 'User',
+            default: [],
+        },
     },
     {
         timestamps: true,

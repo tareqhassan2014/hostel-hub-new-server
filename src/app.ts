@@ -1,6 +1,7 @@
 import compression from 'compression';
 import cors from 'cors';
 import express, { Application } from 'express';
+import fileUpload from 'express-fileupload';
 import helmet from 'helmet';
 import { Server } from 'http';
 import mongoose from 'mongoose';
@@ -11,6 +12,8 @@ import hostelRoute from './resources/hostel/hostel.router.js';
 import hostelAddRouter from './resources/hostelAdd/hostelAdd.router.js';
 import hostelBookingRouter from './resources/hostelBooking/hostelBooking.router.js';
 import hostelMemberRouter from './resources/hostelMember/hostelMember.router.js';
+import mealRouter from './resources/meal/meal.routes.js';
+import meal2router from './resources/meal2/meal2.router.js';
 import productRoute from './resources/product/product.router.js';
 import storeRoute from './resources/store/store.router.js';
 import { globalErrorHandler } from './utility/globalErrorHandler.js';
@@ -34,6 +37,11 @@ class App {
         this.express.use(express.json());
         this.express.use(express.urlencoded({ extended: false }));
         this.express.use(compression());
+        this.express.use(
+            fileUpload({
+                useTempFiles: true,
+            })
+        );
     }
 
     private async initializeDataBaseConnection(): Promise<void> {
@@ -53,13 +61,19 @@ class App {
         this.express.use('/api/v1/hostelAdd', hostelAddRouter);
         this.express.use('/api/v1/hostelBooking', hostelBookingRouter);
         this.express.use('/api/v1/hostelMember', hostelMemberRouter);
+        this.express.use('/api/v1/meal', mealRouter);
+        this.express.use('/api/v1/meal2', meal2router);
         this.express.all('*', notFound);
         this.express.use(globalErrorHandler);
     }
 
     public listen(): Server {
         return this.express.listen(this.port, () =>
-            console.log(`server is running http://localhost:${this.port}/`)
+            console.log(
+                `Server started at ${new Date().toLocaleString()} on http://localhost:${
+                    this.port
+                }/`
+            )
         );
     }
 }

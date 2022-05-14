@@ -53,7 +53,9 @@ export const updateUserToVendor = catchAsync(
     async (req: Request, res: Response, next: NextFunction) => {
         if (!req.body.vendor) req.body.vendor = req.params.vendorId;
 
-        console.log(req.params.vendorId);
+        if (!req.body.vendor) {
+            next(new AppError('Please Provide a user ID', 400));
+        }
 
         const vendor = await UserModel.findByIdAndUpdate(req.body.vendor, {
             role: 'vendor',
